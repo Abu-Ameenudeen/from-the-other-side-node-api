@@ -12,12 +12,18 @@ export async function serveStatic(req, res, baseDir) {
         req.url === "/" ? "index.html" : req.url
     )
 
+    const ext = path.extname(filePath)
+
     try {
         const content = await fs.readFile(filePath)
-        const ext = path.extname(filePath)
         sendResponse(req, res, 200, getContentType(ext), content)
     } catch (err) {
-        console.log(err)
+        if (err.code === "ENOENT") {
+            const content = await fs.readFile(path.join(pathToPublicDir, "404.html"))
+            sendResponse(req, res, 404, "text/html", content)
+        } else {
+            sendResponse(req, res, 500, "text/html", <html><h1>Server Error: ${err.code}</h1></html>)
+        }
     }
 
 }

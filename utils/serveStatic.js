@@ -24,8 +24,8 @@ export async function serveStatic(req, res, baseDir) {
             sendResponse(req, res, 404, "text/html", content)
 
         } else {
-            sendResponse(req, res, 500, "text/html", <html><h1>Server Error: ${err.code}</h1></html>)
-                        
+            sendResponse(req, res, 500, "text/html", `<html><h1>Server Error: ${err.code}</h1></html>`)
+
         }
 
     }

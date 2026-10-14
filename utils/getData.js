@@ -9,8 +9,8 @@ export async function getData() {
     const parsedData = JSON.parse(data)
     return parsedData
 
-  } catch(err) {
-    console.log(err)
+  } catch(error) {
+    console.log(error)
     return []
   }
 }

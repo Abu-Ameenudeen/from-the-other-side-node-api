@@ -8,6 +8,6 @@ export async function parseJSONBody(req) {
     try {
         return JSON.parse(body)
     } catch (err) {
-        throw `Invalid JSON format: ${err}`
+        throw new Error(`Invalid JSON format: ${err}`)
     }
 }

@@ -1,6 +1,7 @@
 import { addNewSightings } from "../utils/addNewSightings.js"
 import { getData } from "../utils/getData.js"
 import { parseJSONBody } from '../utils/parseJSONBody.js'
+import { sanitizeInput } from "../utils/sanitizeInput.js"
 import { sendResponse } from "../utils/sendResponse.js"
 
 export async function handleGet(res) {
@@ -12,8 +13,9 @@ export async function handleGet(res) {
 export async function handlePost(req, res) {
     try {
         const parsedBody = await parseJSONBody(req)
-        await addNewSightings(parsedBody)
-        sendResponse(res, 201, 'application/json', JSON.stringify(parsedBody))
+        const sanitizedBody = sanitizeInput(parsedBody)
+        await addNewSightings(sanitizedBody)
+        sendResponse(res, 201, 'application/json', JSON.stringify(sanitizedBody))
     } catch (err) {
         const message = err instanceof Error ? err.message : String(err)
         sendResponse(res, 400, 'application/json', JSON.stringify({ error: message }))

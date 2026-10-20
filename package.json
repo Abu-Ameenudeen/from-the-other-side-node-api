@@ -9,5 +9,8 @@
     "start": "node server.js"
   },
   "author": "Abu Ameen",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "sanitize-html": "^2.18.1"
+  }
 }
